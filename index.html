@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub - Discover Amazing Events</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">EventHub</h1>
+            <nav class="nav">
+                <button class="nav-btn active" data-view="list">
+                    <span class="icon">📋</span> List View
+                </button>
+                <button class="nav-btn" data-view="calendar">
+                    <span class="icon">📅</span> Calendar
+                </button>
+                <button class="nav-btn" data-view="map">
+                    <span class="icon">🗺️</span> Map
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Search and Filters Section -->
+            <section class="search-section">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search events by name, location, or keywords..." aria-label="Search events">
+                    <button class="search-btn" aria-label="Search">🔍</button>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="dateFilter">Date Range:</label>
+                        <select id="dateFilter" aria-label="Filter by date range">
+                            <option value="">All dates</option>
+                            <option value="today">Today</option>
+                            <option value="week">This week</option>
+                            <option value="month">This month</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="typeFilter">Event Type:</label>
+                        <select id="typeFilter" aria-label="Filter by event type">
+                            <option value="">All types</option>
+                            <option value="conference">Conference</option>
+                            <option value="workshop">Workshop</option>
+                            <option value="webinar">Webinar</option>
+                            <option value="networking">Networking</option>
+                            <option value="seminar">Seminar</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="locationFilter">Location:</label>
+                        <select id="locationFilter" aria-label="Filter by location">
+                            <option value="">All locations</option>
+                            <option value="online">Online</option>
+                            <option value="new-york">New York</option>
+                            <option value="san-francisco">San Francisco</option>
+                            <option value="london">London</option>
+                            <option value="toronto">Toronto</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="priceFilter">Price:</label>
+                        <select id="priceFilter" aria-label="Filter by price">
+                            <option value="">All prices</option>
+                            <option value="free">Free</option>
+                            <option value="paid">Paid</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="categoryFilter">Category:</label>
+                        <select id="categoryFilter" aria-label="Filter by category">
+                            <option value="">All categories</option>
+                            <option value="technology">Technology</option>
+                            <option value="business">Business</option>
+                            <option value="design">Design</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="health">Health</option>
+                        </select>
+                    </div>
+
+                    <button class="clear-filters" id="clearFilters">Clear All</button>
+                </div>
+            </section>
+
+            <!-- Controls Section -->
+            <section class="controls">
+                <div class="sort-controls">
+                    <label for="sortSelect">Sort by:</label>
+                    <select id="sortSelect" aria-label="Sort events">
+                        <option value="newest">Newest</option>
+                        <option value="upcoming">Upcoming first</option>
+                        <option value="price-low">Price (low to high)</option>
+                        <option value="price-high">Price (high to low)</option>
+                    </select>
+                </div>
+
+                <button class="submit-event-btn" id="submitEventBtn">
+                    <span class="icon">➕</span> Submit Your Event
+                </button>
+            </section>
+
+            <!-- Featured Events -->
+            <section class="featured-section">
+                <h2>Featured Events</h2>
+                <div class="featured-events" id="featuredEvents"></div>
+            </section>
+
+            <!-- Events Container -->
+            <section class="events-section">
+                <div class="events-header">
+                    <h2>All Events</h2>
+                    <div class="results-count" id="resultsCount"></div>
+                </div>
+
+                <!-- List View -->
+                <div class="events-container" id="eventsContainer"></div>
+
+                <!-- Calendar View -->
+                <div class="calendar-view" id="calendarView" style="display: none;">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" id="prevMonth">‹</button>
+                        <h3 id="currentMonth"></h3>
+                        <button class="calendar-nav" id="nextMonth">›</button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+
+                <!-- Map View -->
+                <div class="map-view" id="mapView" style="display: none;">
+                    <div class="map-placeholder">
+                        <h3>Interactive Map View</h3>
+                        <p>Event locations would be displayed on an interactive map here</p>
+                        <div class="map-events" id="mapEvents"></div>
+                    </div>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container">
+                    <button class="load-more-btn" id="loadMoreBtn">Load More Events</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Add Event Modal -->
+    <div class="modal" id="addEventModal" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Submit Your Event</h3>
+                <button class="modal-close" id="closeModal" aria-label="Close modal">&times;</button>
+            </div>
+            <form class="event-form" id="eventForm">
+                <div class="form-group">
+                    <label for="eventTitle">Event Title *</label>
+                    <input type="text" id="eventTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventDate">Date *</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventTime">Time *</label>
+                    <input type="time" id="eventTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventLocation">Location *</label>
+                    <input type="text" id="eventLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventType">Event Type *</label>
+                    <select id="eventType" required>
+                        <option value="">Select type</option>
+                        <option value="conference">Conference</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="webinar">Webinar</option>
+                        <option value="networking">Networking</option>
+                        <option value="seminar">Seminar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventCategory">Category *</label>
+                    <select id="eventCategory" required>
+                        <option value="">Select category</option>
+                        <option value="technology">Technology</option>
+                        <option value="business">Business</option>
+                        <option value="design">Design</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="health">Health</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventPrice">Price</label>
+                    <input type="number" id="eventPrice" min="0" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="eventDescription">Description *</label>
+                    <textarea id="eventDescription" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="eventImage">Image URL</label>
+                    <input type="url" id="eventImage" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn-primary">Submit Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading" id="loading" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="events.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
