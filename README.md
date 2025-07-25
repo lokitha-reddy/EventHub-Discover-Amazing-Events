@@ -36,24 +36,20 @@ EventHub is a powerful event listing web application designed to help users find
 * Pagination with "Load More" functionality
   <img width="1638" height="917" alt="image" src="https://github.com/user-attachments/assets/0c0b9153-9bae-4673-991f-a8bb4f174e06" />
 
-
 ### 📆 Calendar View
 * Monthly calendar layout
 * Events marked per day
 * Interactive navigation
   <img width="1725" height="909" alt="image" src="https://github.com/user-attachments/assets/137d2006-2ec1-4fd0-84e2-0f503e2e568f" />
 
-
 ### 🗺️ Map View (Placeholder)
 * Styled map container to represent locations of events
   <img width="1842" height="903" alt="image" src="https://github.com/user-attachments/assets/f46fa7dc-e0a0-4fe1-b353-d0dceea55cba" />
-
 
 ### ➕ Submit Your Event
 * Modal form to submit custom events
 * Live validation and accessibility features
   <img width="1224" height="176" alt="image" src="https://github.com/user-attachments/assets/722b822f-d7f6-4831-b336-6fb8c6adb308" />
-
 
 ### 📱 Responsive Design
 * Mobile-first layout
